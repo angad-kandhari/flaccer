@@ -71,10 +71,12 @@
       this.setupMediaSession();
       this.verifyTracks();
       F.ready();
+      window.__flaccerSeek = (t) => { this.audio.currentTime = t; return { currentTime: this.audio.currentTime }; };
       window.__flaccerDebug = () => {
         const s = this.state; let energy = 0;
         if (this.analyser) { const d = new Uint8Array(this.analyser.frequencyBinCount); this.analyser.getByteFrequencyData(d); energy = d.reduce((x, y) => x + y, 0) / d.length; }
-        return { playing: s.playing, time: this.audio.currentTime, cur: s.cur, dur: s.dur, energy, ctx: !!this.ctx, sampleRate: this.ctx && this.ctx.sampleRate, err: this.lastErr || null, size: [this.lastW, this.lastH], tracks: s.tracks.map((t) => ({ name: t.name, dur: t.dur, meta: t.meta, missing: t.missing })) };
+        const tr = (r) => { const o = []; for (let i = 0; i < r.length; i++) o.push([+r.start(i).toFixed(2), +r.end(i).toFixed(2)]); return o; };
+        return { playing: s.playing, time: this.audio.currentTime, stateTime: s.time, cur: s.cur, dur: s.dur, energy, readyState: this.audio.readyState, networkState: this.audio.networkState, seeking: this.audio.seeking, seekable: tr(this.audio.seekable), buffered: tr(this.audio.buffered), ctx: !!this.ctx, sampleRate: this.ctx && this.ctx.sampleRate, err: this.lastErr || null, size: [this.lastW, this.lastH], tracks: s.tracks.map((t) => ({ name: t.name, dur: t.dur, meta: t.meta, missing: t.missing })) };
       };
     }
     componentWillUnmount() { cancelAnimationFrame(this.raf); clearInterval(this.tick); window.removeEventListener('keydown', this.onKey); if (this.ro) this.ro.disconnect(); if (this.audio) this.audio.pause(); if (this.ctx) this.ctx.close(); }

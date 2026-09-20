@@ -4,7 +4,7 @@ const fs = require('fs');
 const { execFileSync } = require('child_process');
 const out = process.argv[2] || 'test.flac';
 const wav = out.replace(/\.flac$/, '') + '.wav';
-const sr = 44100, secs = 8, n = sr * secs;
+const sr = 44100, secs = Number(process.argv[3]) || 8, n = sr * secs;
 const buf = Buffer.alloc(44 + n * 4);
 buf.write('RIFF', 0); buf.writeUInt32LE(36 + n * 4, 4); buf.write('WAVE', 8); buf.write('fmt ', 12);
 buf.writeUInt32LE(16, 16); buf.writeUInt16LE(1, 20); buf.writeUInt16LE(2, 22); buf.writeUInt32LE(sr, 24);

@@ -3,6 +3,7 @@ const { app, BrowserWindow, protocol, net, ipcMain, dialog, Menu, shell } = requ
 const path = require('path');
 const fs = require('fs');
 const { pathToFileURL } = require('url');
+const { Readable } = require('stream');
 const { readFlacMeta } = require('./flac-meta');
 
 const ROOT = path.resolve(__dirname, '..');
@@ -23,7 +24,7 @@ let lastFit = null;
 let saveTimer = null;
 const pendingOpen = [];
 
-const VALUE_FLAGS = new Set(['--screenshot', '--wait', '--user-data', '--state']);
+const VALUE_FLAGS = new Set(['--screenshot', '--wait', '--user-data', '--state', '--exec']);
 const argvPaths = (argv) => argv.slice(1).filter((a, i, arr) => !a.startsWith('-') && !VALUE_FLAGS.has(arr[i - 1]) && isAudio(a) && fs.existsSync(a)).map((a) => path.resolve(a));
 const flag = (name) => { const i = process.argv.indexOf(name); return i >= 0 ? process.argv[i + 1] : null; };
 if (flag('--user-data')) app.setPath('userData', path.resolve(flag('--user-data')));
@@ -85,11 +86,29 @@ function applyFit() {
   if (cw !== w || ch !== h) win.setContentSize(w, h, false);
 }
 
-function serveFile(fp, req) {
-  const headers = {};
-  const range = req.headers.get('range');
-  if (range) headers.range = range;
-  return net.fetch(pathToFileURL(fp).href, { headers });
+function serveFile(fp) {
+  return net.fetch(pathToFileURL(fp).href);
+}
+
+const MIME = { '.flac': 'audio/flac', '.mp3': 'audio/mpeg', '.ogg': 'audio/ogg', '.oga': 'audio/ogg', '.opus': 'audio/ogg', '.wav': 'audio/wav', '.aiff': 'audio/aiff', '.aif': 'audio/aiff', '.m4a': 'audio/mp4', '.aac': 'audio/aac', '.mp4': 'audio/mp4', '.webm': 'audio/webm' };
+
+// Media needs real byte-range support (206 + Content-Range + Accept-Ranges), otherwise
+// Chromium treats the source as unseekable and every seek snaps back to the start.
+function serveMedia(fp, req) {
+  let st;
+  try { st = fs.statSync(fp); } catch (e) { return new Response('not found', { status: 404 }); }
+  const size = st.size;
+  let start = 0, end = size - 1, status = 200;
+  const m = /^bytes=(\d*)-(\d*)$/.exec(req.headers.get('range') || '');
+  if (m) {
+    if (m[1]) { start = +m[1]; end = m[2] ? Math.min(+m[2], size - 1) : size - 1; }
+    else if (m[2]) start = Math.max(0, size - +m[2]);
+    if (start >= size || start > end) return new Response(null, { status: 416, headers: { 'Content-Range': 'bytes */' + size } });
+    status = 206;
+  }
+  const headers = { 'Content-Type': MIME[path.extname(fp).toLowerCase()] || 'application/octet-stream', 'Accept-Ranges': 'bytes', 'Content-Length': String(end - start + 1), 'Cache-Control': 'no-store' };
+  if (status === 206) headers['Content-Range'] = 'bytes ' + start + '-' + end + '/' + size;
+  return new Response(Readable.toWeb(fs.createReadStream(fp, { start, end })), { status, headers });
 }
 
 function walk(p, out, depth) {
@@ -135,13 +154,13 @@ app.whenReady().then(() => {
     if (u.pathname.startsWith('/media/')) {
       const p = decodeURIComponent(u.pathname.slice('/media/'.length));
       if (!path.isAbsolute(p) || !isAudio(p)) return new Response('forbidden', { status: 403 });
-      return serveFile(p, req);
+      return serveMedia(p, req);
     }
     const rel = decodeURIComponent(u.pathname);
     if (!/^\/(renderer|node_modules)\//.test(rel)) return new Response('not found', { status: 404 });
     const fp = path.normalize(path.join(ROOT, rel));
     if (!fp.startsWith(ROOT + path.sep)) return new Response('forbidden', { status: 403 });
-    return serveFile(fp, req);
+    return serveFile(fp);
   });
 
   ipcMain.handle('debugState', () => { try { return flag('--state') ? JSON.parse(flag('--state')) : null; } catch (e) { return null; } });
@@ -183,7 +202,11 @@ app.whenReady().then(() => {
     rendererReady = true;
     queueOpen([...pendingOpen.splice(0), ...argvPaths(process.argv)]);
     const shot = flag('--screenshot');
-    if (shot) setTimeout(() => takeScreenshot(shot), Number(flag('--wait') || 2500));
+    if (shot) {
+      const wait = Number(flag('--wait') || 2500);
+      if (flag('--exec')) setTimeout(() => win.webContents.executeJavaScript(flag('--exec')).then((r) => console.log('FLACCER_EXEC ' + JSON.stringify(r)), (e) => console.log('FLACCER_EXEC error ' + e)), Math.floor(wait / 2));
+      setTimeout(() => takeScreenshot(shot), wait);
+    }
   });
 
   buildMenu();
