@@ -19,7 +19,17 @@ jobs:
       - run: npm ci
       - run: npm run pack
       - run: npm run dmg
-      - name: Attach DMG to the release
+      - name: Publish the DMG (never replaces a DMG that was uploaded by hand)
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh release create "${GITHUB_REF_NAME}" dist/*.dmg --title "FLACCER ${GITHUB_REF_NAME}" --generate-notes || gh release upload "${GITHUB_REF_NAME}" dist/*.dmg --clobber
+          TAG: ${{ github.ref_name }}
+        run: |
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            if gh release view "$TAG" --json assets --jq '.assets[].name' | grep -q '\.dmg$'; then
+              echo "release $TAG already has a DMG; leaving it alone"
+            else
+              gh release upload "$TAG" dist/*.dmg
+            fi
+          else
+            gh release create "$TAG" dist/*.dmg --title "FLACCER $TAG" --generate-notes
+          fi
