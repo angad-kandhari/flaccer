@@ -1,0 +1,21 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:; media-src 'self'; connect-src 'self'">
+<title>FLACCER</title>
+<link rel="stylesheet" href="fonts/fonts.css">
+<style>
+  html, body { margin: 0; padding: 0; background: transparent !important; overflow: hidden; height: auto !important; }
+  #root { display: block; width: max-content; }
+  /* Frameless window: title bars (and the menu strip) move the window; controls inside them stay clickable. */
+  [data-screen-label] > div:first-child, [data-screen-label="Main"] > div:nth-child(2) { -webkit-app-region: drag; }
+  [data-screen-label] button, [data-screen-label] input, [data-screen-label] select, [data-screen-label] canvas, [data-screen-label] [style*="cursor"] { -webkit-app-region: no-drag; }
+</style>
+<script src="../node_modules/react/umd/react.production.min.js"></script>
+<script src="../node_modules/react-dom/umd/react-dom.production.min.js"></script>
+<script src="dc-runtime.js"></script>
+<script defer src="player.js"></script>
+</head>
+<body><div id="root"></div></body>
+</html>

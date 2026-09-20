@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>NSHighResolutionCapable</key>
+  <true/>
+  <key>CFBundleDocumentTypes</key>
+  <array>
+    <dict>
+      <key>CFBundleTypeName</key>
+      <string>Audio File</string>
+      <key>CFBundleTypeRole</key>
+      <string>Viewer</string>
+      <key>LSHandlerRank</key>
+      <string>Alternate</string>
+      <key>LSItemContentTypes</key>
+      <array>
+        <string>org.xiph.flac</string>
+        <string>public.mp3</string>
+        <string>public.mpeg-4-audio</string>
+        <string>org.xiph.ogg-audio</string>
+        <string>com.microsoft.waveform-audio</string>
+        <string>public.aiff-audio</string>
+        <string>public.audio</string>
+      </array>
+      <key>CFBundleTypeExtensions</key>
+      <array>
+        <string>flac</string><string>mp3</string><string>ogg</string><string>oga</string><string>opus</string>
+        <string>wav</string><string>aiff</string><string>aif</string><string>m4a</string><string>aac</string>
+      </array>
+    </dict>
+  </array>
+</dict>
+</plist>

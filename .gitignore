@@ -1,0 +1,8 @@
+node_modules/
+dist/
+.DS_Store
+
+# Claude Design export extras not needed to build the app
+support.js
+uploads/
+.thumbnail

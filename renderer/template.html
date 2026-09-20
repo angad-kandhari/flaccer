@@ -1,0 +1,227 @@
+<!-- Generated from "FLACCER v2.dc.html" by scripts/sync-design.js. Edit the design, not this file. -->
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=VT323&amp;family=Silkscreen:wght@400;700&amp;display=swap" rel="stylesheet">
+<style>
+html,body{margin:0;height:100%}
+body{background:#e6e9ef}
+a{color:inherit}a:hover{color:inherit}
+input[type=range]{-webkit-appearance:none;appearance:none;background:transparent;margin:0;cursor:pointer;height:16px}
+input[type=range]::-webkit-slider-runnable-track{height:9px;border-radius:5px;background:linear-gradient(var(--faceLo),var(--face) 80%);box-shadow:inset 0 2px 3px rgba(0,0,0,.55),0 1px 0 rgba(255,255,255,.7);border:1px solid var(--edge)}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:30px;height:15px;margin-top:-4px;border-radius:8px;background:linear-gradient(#fff,var(--faceHi) 35%,var(--face) 65%,var(--faceLo));border:1px solid var(--edge);box-shadow:0 2px 3px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.9)}
+input[type=range]::-moz-range-track{height:9px;border-radius:5px;background:linear-gradient(var(--faceLo),var(--face) 80%);border:1px solid var(--edge)}
+input[type=range]::-moz-range-thumb{width:30px;height:15px;border-radius:8px;background:linear-gradient(#fff,var(--faceHi) 35%,var(--face) 65%,var(--faceLo));border:1px solid var(--edge)}
+input[type=range][data-v]{writing-mode:vertical-lr;direction:rtl;height:auto;width:22px}
+input[type=range][data-v]::-webkit-slider-runnable-track{width:9px;height:auto;background:linear-gradient(90deg,var(--faceLo),var(--face) 80%)}
+input[type=range][data-v]::-webkit-slider-thumb{width:20px;height:26px;margin-top:0;margin-left:-6px;border-radius:6px;background:linear-gradient(90deg,#fff,var(--faceHi) 35%,var(--face) 65%,var(--faceLo));box-shadow:0 2px 3px rgba(0,0,0,.4),inset 0 0 0 1px rgba(255,255,255,.6),inset 0 12px 0 -11px var(--edge)}
+input[type=range][data-v]::-moz-range-track{width:9px;height:auto}
+input[type=range][data-v]::-moz-range-thumb{width:20px;height:26px;border-radius:6px}
+input[type=range][data-accent]::-webkit-slider-runnable-track{background:linear-gradient(90deg,var(--accent) 0 var(--fill),var(--faceLo) var(--fill))}
+input[type=range][data-accent]::-moz-range-track{background:linear-gradient(90deg,var(--accent) 0 var(--fill),var(--faceLo) var(--fill))}
+select{font:inherit}
+</style>
+</helmet>
+<div ref="{{ rootRef }}" onDragOver="{{ onDragOver }}" onDrop="{{ onDrop }}" style="--face: #d9dde6; --facehi: #f7f8fb; --facelo: #a9b0bf; --edge: #5f677a; --lcd1: #2148b8; --lcd2: #0d1f6b; --lcdfg: #e3ebff; --lcddim: #6b82d4; --text: #1a1f2c; --accent: #2f6df5; min-height: 100vh; box-sizing: border-box; padding: 40px 16px; display: flex; justify-content: center; align-items: flex-start; background: #e6e9ef; font-family: Verdana,Geneva,Tahoma,sans-serif; font-size: 11px; user-select: none; position: relative">
+<input type="file" multiple="" accept="audio/*,.flac,.mp3,.ogg,.wav,.m4a,.aac" style="display:none" ref="{{ fileRef }}" onChange="{{ onFiles }}">
+<div ref="{{ stackRef }}" style="display:flex;flex-direction:column;width:480px;filter:drop-shadow(0 14px 22px rgba(20,30,60,.4))">
+
+<!-- MAIN -->
+<div data-screen-label="Main" style="box-sizing:border-box;border:1px solid var(--edge);border-radius:18px;padding:2px;background:linear-gradient(175deg,var(--faceHi) 0%,var(--face) 30%,var(--face) 70%,var(--faceLo) 100%);box-shadow:inset 0 0 0 1px rgba(255,255,255,.85),inset 0 -2px 0 rgba(0,0,0,.2);color:var(--text);position:relative;z-index:3">
+  <sc-if value="{{ macChrome }}" hint-placeholder-val="{{ false }}">
+    <div style="display:flex;align-items:center;height:28px;padding:0 12px;gap:8px;border-bottom:1px solid var(--edge);border-radius:16px 16px 0 0;background:linear-gradient(var(--faceHi),var(--face));box-shadow:inset 0 1px 0 #fff">
+      <div style="display:flex;gap:8px"><span onClick="{{ stop }}" title="Stop" style="width:12px;height:12px;border-radius:50%;background:radial-gradient(circle at 40% 35%,#ff9b94,#ff5f57 60%,#d9463f);border:1px solid rgba(0,0,0,.3);cursor:pointer"></span><span onClick="{{ toggleShade }}" title="Compact" style="width:12px;height:12px;border-radius:50%;background:radial-gradient(circle at 40% 35%,#ffe08a,#febc2e 60%,#d59a1a);border:1px solid rgba(0,0,0,.3);cursor:pointer"></span><span onClick="{{ toggleDbl }}" title="Double size" style="width:12px;height:12px;border-radius:50%;background:radial-gradient(circle at 40% 35%,#8be59a,#28c840 60%,#1f9f33);border:1px solid rgba(0,0,0,.3);cursor:pointer"></span></div>
+      <div style="flex:1;text-align:center;font-weight:700;font-size:12px;letter-spacing:1px;text-shadow:0 1px 0 #fff">FLACCER {{ pinGlyph }}</div>
+      <div style="width:56px"></div>
+    </div>
+  </sc-if>
+  <sc-if value="{{ classicChrome }}" hint-placeholder-val="{{ true }}">
+    <div style="display:flex;align-items:center;height:28px;padding:0 8px;gap:8px;border-bottom:1px solid var(--edge);border-radius:16px 16px 0 0;background:linear-gradient(var(--faceHi),var(--face));box-shadow:inset 0 1px 0 #fff">
+      <div style="width:20px;height:18px;border-radius:4px;border:1px solid var(--edge);background:linear-gradient(135deg,var(--faceHi),var(--faceLo));box-shadow:inset 0 1px 0 #fff;display:flex;align-items:center;justify-content:center;font-family:Silkscreen,monospace;font-size:9px;color:var(--accent)">F</div>
+      <div style="flex:1;height:10px;border-radius:5px;border:1px solid var(--edge);box-shadow:inset 0 1px 1px rgba(0,0,0,.35),0 1px 0 rgba(255,255,255,.8);background:repeating-linear-gradient(0deg,var(--faceLo) 0 1px,var(--faceHi) 1px 2px,var(--face) 2px 3px)"></div>
+      <div style="font-family:Silkscreen,monospace;font-weight:700;letter-spacing:1px;font-size:12px;color:var(--edge);text-shadow:0 1px 0 #fff,0 -1px 0 rgba(0,0,0,.25);padding:0 4px">FLACCER {{ pinGlyph }}</div>
+      <div style="flex:1;height:10px;border-radius:5px;border:1px solid var(--edge);box-shadow:inset 0 1px 1px rgba(0,0,0,.35),0 1px 0 rgba(255,255,255,.8);background:repeating-linear-gradient(0deg,var(--faceLo) 0 1px,var(--faceHi) 1px 2px,var(--face) 2px 3px)"></div>
+      <div style="display:flex;gap:4px">
+        <button onClick="{{ toggleShade }}" title="Compact mode" style="width:20px;height:18px;padding:0;border-radius:4px;border:1px solid var(--edge);background:linear-gradient(var(--faceHi),var(--faceLo));box-shadow:inset 0 1px 0 #fff;color:var(--text);cursor:pointer;display:flex;align-items:center;justify-content:center" style-hover="background:linear-gradient(#fff,var(--face))" style-active="background:var(--faceLo)"><svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor" style="display:block"><rect x="1" y="6" width="8" height="2"></rect></svg></button>
+        <button onClick="{{ toggleDbl }}" title="Double size" style="width:20px;height:18px;padding:0;border-radius:4px;border:1px solid var(--edge);background:linear-gradient(var(--faceHi),var(--faceLo));box-shadow:inset 0 1px 0 #fff;color:var(--text);cursor:pointer;display:flex;align-items:center;justify-content:center" style-hover="background:linear-gradient(#fff,var(--face))" style-active="background:var(--faceLo)"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.6" style="display:block"><rect x="1.5" y="1.5" width="7" height="7"></rect></svg></button>
+        <button onClick="{{ stop }}" title="Stop" style="width:20px;height:18px;padding:0;border-radius:4px;border:1px solid var(--edge);background:linear-gradient(var(--faceHi),var(--faceLo));box-shadow:inset 0 1px 0 #fff;color:var(--text);cursor:pointer;display:flex;align-items:center;justify-content:center" style-hover="background:linear-gradient(#fff,var(--face))" style-active="background:var(--faceLo)"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8" style="display:block"><path d="M2 2l6 6M8 2l-6 6"></path></svg></button>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ shade }}" hint-placeholder-val="{{ false }}">
+    <div style="display:flex;align-items:center;gap:8px;padding:8px 12px">
+      <div style="font-family:VT323,monospace;font-size:24px;line-height:22px;color:var(--lcdFg);text-shadow:0 0 6px var(--lcdDim);background:linear-gradient(var(--lcd1),var(--lcd2));padding:2px 8px;border-radius:6px;border:1px solid var(--edge);box-shadow:inset 0 2px 5px rgba(0,0,0,.6)">{{ timeStr }}</div>
+      <div style="flex:1;overflow:hidden;white-space:pre;font-family:VT323,monospace;font-size:22px;line-height:22px;color:var(--lcdFg);text-shadow:0 0 6px var(--lcdDim);background:linear-gradient(var(--lcd1),var(--lcd2));padding:2px 8px;border-radius:6px;border:1px solid var(--edge);box-shadow:inset 0 2px 5px rgba(0,0,0,.6)">{{ marqueeShort }}</div>
+      <div style="display:flex;gap:4px">
+        <button onClick="{{ prev }}" style="width:28px;height:28px;border-radius:50%;border:1px solid var(--edge);background:radial-gradient(circle at 50% 28%,#fff,var(--faceHi) 30%,var(--face) 62%,var(--faceLo));box-shadow:0 2px 2px rgba(0,0,0,.35);color:var(--text);cursor:pointer;padding:0;display:flex;align-items:center;justify-content:center" style-active="background:var(--faceLo)"><svg width="12" height="12" viewBox="0 0 18 18" fill="currentColor" style="display:block"><path d="M9 4v10L2 9zM17 4v10l-7-5z"></path></svg></button>
+        <button onClick="{{ playPause }}" style="width:28px;height:28px;border-radius:50%;border:1px solid var(--edge);background:radial-gradient(circle at 50% 28%,#fff,var(--faceHi) 30%,var(--face) 62%,var(--faceLo));box-shadow:0 2px 2px rgba(0,0,0,.35);color:var(--accent);cursor:pointer;padding:0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900" style-active="background:var(--faceLo)">{{ playGlyph }}</button>
+        <button onClick="{{ next }}" style="width:28px;height:28px;border-radius:50%;border:1px solid var(--edge);background:radial-gradient(circle at 50% 28%,#fff,var(--faceHi) 30%,var(--face) 62%,var(--faceLo));box-shadow:0 2px 2px rgba(0,0,0,.35);color:var(--text);cursor:pointer;padding:0;display:flex;align-items:center;justify-content:center" style-active="background:var(--faceLo)"><svg width="12" height="12" viewBox="0 0 18 18" fill="currentColor" style="display:block"><path d="M1 4v10l7-5zM9 4v10l7-5z"></path></svg></button>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ notShade }}" hint-placeholder-val="{{ true }}">
+  <div style="display:flex;gap:22px;padding:5px 16px 4px;font-size:13px;border-bottom:1px solid rgba(255,255,255,.6);box-shadow:0 1px 0 rgba(0,0,0,.08)">
+    <span onClick="{{ openFiles }}" style="cursor:pointer"><u>F</u>ile</span>
+    <span onClick="{{ playPause }}" style="cursor:pointer"><u>P</u>lay</span>
+    <span onClick="{{ openOptions }}" style="cursor:pointer"><u>O</u>ptions</span>
+    <span onClick="{{ openThemes }}" style="cursor:pointer"><u>T</u>hemes</span>
+    <span onClick="{{ togglePlWin }}" style="cursor:pointer">Play<u>l</u>ist</span>
+  </div>
+  <div style="padding:10px 12px 12px;display:flex;flex-direction:column;gap:9px">
+    <div style="display:flex;gap:10px;align-items:stretch">
+      <div style="flex:1;min-width:0;position:relative;display:flex;flex-direction:column;gap:6px;padding:9px 12px;border-radius:9px;border:2px solid var(--edge);background:linear-gradient(var(--lcd1),var(--lcd2) 85%);box-shadow:inset 0 4px 8px rgba(0,0,0,.6),inset 0 -1px 0 rgba(255,255,255,.2),0 1px 0 rgba(255,255,255,.8);color:var(--lcdFg);font-family:VT323,monospace;text-shadow:0 0 5px var(--lcdDim);overflow:hidden">
+        <div style="position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(0,0,0,.14) 0 1px,transparent 1px 3px)"></div>
+        <div style="position:absolute;left:0;right:0;top:0;height:45%;pointer-events:none;background:linear-gradient(rgba(255,255,255,.14),rgba(255,255,255,0));border-radius:7px 7px 40% 40%"></div>
+        <div style="display:flex;gap:10px;align-items:center;height:50px;position:relative">
+          <div style="width:10px;font-size:14px;line-height:1">{{ statusGlyph }}</div>
+          <div onClick="{{ toggleRemaining }}" title="Elapsed / remaining" style="font-size:46px;line-height:40px;letter-spacing:3px;cursor:pointer;min-width:122px">{{ timeStr }}</div>
+          <div style="display:flex;flex-direction:column;gap:6px;font-size:13px;line-height:12px;min-width:112px">
+            <div style="display:flex;align-items:center;gap:5px"><span style="color:var(--lcdDim);text-shadow:none;font-weight:700;font-family:Verdana,sans-serif;font-size:9px">KBPS</span><span style="padding:1px 5px;border-radius:3px;background:var(--lcdFg);color:var(--lcd2);text-shadow:none;min-width:22px;text-align:center">{{ kbpsStr }}</span><span style="color:var(--lcdDim);text-shadow:none;font-weight:700;font-family:Verdana,sans-serif;font-size:9px">KHZ</span><span style="padding:1px 5px;border-radius:3px;background:var(--lcdFg);color:var(--lcd2);text-shadow:none;min-width:16px;text-align:center">{{ khzStr }}</span></div>
+            <div style="display:flex;align-items:center;gap:5px"><span style="padding:1px 7px;border-radius:3px;background:var(--lcdFg);color:var(--lcd2);letter-spacing:1px;text-shadow:none">{{ chanStr }}</span><span style="color:{{ shuffleLcd }}">SHUF</span><span style="color:{{ repeatLcd }}">REP</span><span style="color:{{ eqLcd }}">EQ</span></div>
+          </div>
+          <canvas ref="{{ canvasRef }}" width="80" height="44" onClick="{{ toggleViz }}" title="Spectrum / oscilloscope" style="width:80px;height:44px;image-rendering:pixelated;cursor:pointer;margin-left:auto"></canvas>
+        </div>
+        <div style="position:relative;overflow:hidden;white-space:pre;font-size:26px;line-height:26px;letter-spacing:1px;border-top:1px solid var(--lcdDim);padding-top:3px">{{ marquee }}</div>
+      </div>
+      <div style="display:flex;flex-direction:column;justify-content:space-between;gap:6px;width:74px">
+        <button onClick="{{ toggleEqWin }}" title="Equalizer panel" style="height:24px;border-radius:12px;border:1px solid var(--edge);background:linear-gradient(#fff,var(--faceHi) 30%,var(--face) 65%,var(--faceLo));box-shadow:0 1px 2px rgba(0,0,0,.3);color:var(--text);font:inherit;font-weight:700;font-size:10px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:5px;padding:0" style-hover="background:linear-gradient(#fff,var(--faceHi) 60%,var(--face))" style-active="background:var(--faceLo);box-shadow:inset 0 1px 3px rgba(0,0,0,.4)"><span style="width:8px;height:8px;border-radius:50%;box-shadow:inset 0 0 2px rgba(0,0,0,.7),0 0 4px {{ eqWinLed }};background:{{ eqWinLed }}"></span>EQ</button>
+        <button onClick="{{ toggleShuffle }}" style="height:24px;border-radius:12px;border:1px solid var(--edge);background:linear-gradient(#fff,var(--faceHi) 30%,var(--face) 65%,var(--faceLo));box-shadow:0 1px 2px rgba(0,0,0,.3);color:var(--text);font:inherit;font-weight:700;font-size:10px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:5px;padding:0" style-hover="background:linear-gradient(#fff,var(--faceHi) 60%,var(--face))" style-active="background:var(--faceLo);box-shadow:inset 0 1px 3px rgba(0,0,0,.4)"><span style="width:8px;height:8px;border-radius:50%;box-shadow:inset 0 0 2px rgba(0,0,0,.7),0 0 4px {{ shuffleLed }};background:{{ shuffleLed }}"></span>SHUF</button>
+        <button onClick="{{ toggleRepeat }}" style="height:24px;border-radius:12px;border:1px solid var(--edge);background:linear-gradient(#fff,var(--faceHi) 30%,var(--face) 65%,var(--faceLo));box-shadow:0 1px 2px rgba(0,0,0,.3);color:var(--text);font:inherit;font-weight:700;font-size:10px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:5px;padding:0" style-hover="background:linear-gradient(#fff,var(--faceHi) 60%,var(--face))" style-active="background:var(--faceLo);box-shadow:inset 0 1px 3px rgba(0,0,0,.4)"><span style="width:8px;height:8px;border-radius:50%;box-shadow:inset 0 0 2px rgba(0,0,0,.7),0 0 4px {{ repeatLed }};background:{{ repeatLed }}"></span>REP</button>
+        <button onClick="{{ togglePlWin }}" title="Playlist panel" style="height:24px;border-radius:12px;border:1px solid var(--edge);background:linear-gradient(#fff,var(--faceHi) 30%,var(--face) 65%,var(--faceLo));box-shadow:0 1px 2px rgba(0,0,0,.3);color:var(--text);font:inherit;font-weight:700;font-size:10px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:5px;padding:0" style-hover="background:linear-gradient(#fff,var(--faceHi) 60%,var(--face))" style-active="background:var(--faceLo);box-shadow:inset 0 1px 3px rgba(0,0,0,.4)"><span style="width:8px;height:8px;border-radius:50%;box-shadow:inset 0 0 2px rgba(0,0,0,.7),0 0 4px {{ plWinLed }};background:{{ plWinLed }}"></span>PL</button>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;gap:10px">
+      <input type="range" data-accent="1" min="0" max="{{ seekMax }}" step="0.1" value="{{ time }}" onChange="{{ onSeek }}" style="flex:1;min-width:0;--fill:{{ seekPct }}">
+      <button onClick="{{ openFiles }}" title="Open files" style="width:38px;height:24px;border-radius:12px;border:1px solid var(--edge);background:linear-gradient(#fff,var(--faceHi) 30%,var(--face) 65%,var(--faceLo));box-shadow:0 1px 2px rgba(0,0,0,.3);color:var(--text);cursor:pointer;padding:0;display:flex;align-items:center;justify-content:center" style-hover="background:linear-gradient(#fff,var(--faceHi) 60%,var(--face))" style-active="background:var(--faceLo)"><svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor" style="display:block"><path d="M6 1l5 6H1z"></path><rect x="1" y="9" width="10" height="2"></rect></svg></button>
+    </div>
+    <div style="display:flex;align-items:center;gap:10px">
+      <div style="display:flex;gap:7px;padding:5px;border-radius:30px;background:linear-gradient(var(--faceLo),var(--face));box-shadow:inset 0 2px 4px rgba(0,0,0,.35),0 1px 0 rgba(255,255,255,.8);border:1px solid var(--edge)">
+        <button onClick="{{ prev }}" style="position:relative;width:48px;height:48px;border-radius:50%;border:1px solid var(--edge);background:radial-gradient(circle at 50% 22%,#fff,var(--faceHi) 28%,var(--face) 60%,var(--faceLo));box-shadow:0 3px 4px rgba(0,0,0,.4),inset 0 -2px 3px rgba(0,0,0,.15),inset 0 1px 0 #fff;color:var(--text);cursor:pointer;padding:0;display:flex;align-items:center;justify-content:center" style-hover="background:radial-gradient(circle at 50% 22%,#fff,#fff 28%,var(--faceHi) 60%,var(--face))" style-active="background:var(--faceLo);box-shadow:inset 0 3px 5px rgba(0,0,0,.45)"><svg width="20" height="20" viewBox="0 0 18 18" fill="currentColor" style="display:block;filter:drop-shadow(0 1px 0 rgba(255,255,255,.7))"><path d="M9 4v10L2 9zM17 4v10l-7-5z"></path></svg></button>
+        <button onClick="{{ play }}" style="position:relative;width:48px;height:48px;border-radius:50%;border:1px solid var(--edge);background:radial-gradient(circle at 50% 22%,#fff,var(--faceHi) 28%,var(--face) 60%,var(--faceLo));box-shadow:0 3px 4px rgba(0,0,0,.4),inset 0 -2px 3px rgba(0,0,0,.15),inset 0 1px 0 #fff;color:var(--accent);cursor:pointer;padding:0;display:flex;align-items:center;justify-content:center" style-hover="background:radial-gradient(circle at 50% 22%,#fff,#fff 28%,var(--faceHi) 60%,var(--face))" style-active="background:var(--faceLo);box-shadow:inset 0 3px 5px rgba(0,0,0,.45)"><svg width="22" height="22" viewBox="0 0 18 18" fill="currentColor" style="display:block;filter:drop-shadow(0 1px 0 rgba(255,255,255,.7))"><path d="M4.5 2.5v13L15.5 9z"></path></svg></button>
+        <button onClick="{{ pause }}" style="position:relative;width:48px;height:48px;border-radius:50%;border:1px solid var(--edge);background:radial-gradient(circle at 50% 22%,#fff,var(--faceHi) 28%,var(--face) 60%,var(--faceLo));box-shadow:0 3px 4px rgba(0,0,0,.4),inset 0 -2px 3px rgba(0,0,0,.15),inset 0 1px 0 #fff;color:var(--text);cursor:pointer;padding:0;display:flex;align-items:center;justify-content:center" style-hover="background:radial-gradient(circle at 50% 22%,#fff,#fff 28%,var(--faceHi) 60%,var(--face))" style-active="background:var(--faceLo);box-shadow:inset 0 3px 5px rgba(0,0,0,.45)"><svg width="20" height="20" viewBox="0 0 18 18" fill="currentColor" style="display:block;filter:drop-shadow(0 1px 0 rgba(255,255,255,.7))"><rect x="3.5" y="3" width="4" height="12" rx="1"></rect><rect x="10.5" y="3" width="4" height="12" rx="1"></rect></svg></button>
+        <button onClick="{{ stop }}" style="position:relative;width:48px;height:48px;border-radius:50%;border:1px solid var(--edge);background:radial-gradient(circle at 50% 22%,#fff,var(--faceHi) 28%,var(--face) 60%,var(--faceLo));box-shadow:0 3px 4px rgba(0,0,0,.4),inset 0 -2px 3px rgba(0,0,0,.15),inset 0 1px 0 #fff;color:var(--text);cursor:pointer;padding:0;display:flex;align-items:center;justify-content:center" style-hover="background:radial-gradient(circle at 50% 22%,#fff,#fff 28%,var(--faceHi) 60%,var(--face))" style-active="background:var(--faceLo);box-shadow:inset 0 3px 5px rgba(0,0,0,.45)"><svg width="20" height="20" viewBox="0 0 18 18" fill="currentColor" style="display:block;filter:drop-shadow(0 1px 0 rgba(255,255,255,.7))"><rect x="4" y="4" width="10" height="10" rx="1"></rect></svg></button>
+        <button onClick="{{ next }}" style="position:relative;width:48px;height:48px;border-radius:50%;border:1px solid var(--edge);background:radial-gradient(circle at 50% 22%,#fff,var(--faceHi) 28%,var(--face) 60%,var(--faceLo));box-shadow:0 3px 4px rgba(0,0,0,.4),inset 0 -2px 3px rgba(0,0,0,.15),inset 0 1px 0 #fff;color:var(--text);cursor:pointer;padding:0;display:flex;align-items:center;justify-content:center" style-hover="background:radial-gradient(circle at 50% 22%,#fff,#fff 28%,var(--faceHi) 60%,var(--face))" style-active="background:var(--faceLo);box-shadow:inset 0 3px 5px rgba(0,0,0,.45)"><svg width="20" height="20" viewBox="0 0 18 18" fill="currentColor" style="display:block;filter:drop-shadow(0 1px 0 rgba(255,255,255,.7))"><path d="M1 4v10l7-5zM9 4v10l7-5z"></path></svg></button>
+      </div>
+      <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:7px;padding:8px 10px;border-radius:12px;border:1px solid var(--edge);background:linear-gradient(var(--faceLo),var(--face));box-shadow:inset 0 2px 4px rgba(0,0,0,.35),0 1px 0 rgba(255,255,255,.8)">
+        <div style="display:flex;align-items:center;gap:6px"><svg width="14" height="12" viewBox="0 0 14 12" fill="var(--edge)" style="display:block;flex:none"><path d="M1 4h3l4-3v10L4 8H1z"></path><path d="M10 3.5a3.5 3.5 0 010 5" fill="none" stroke="var(--edge)" stroke-width="1.4"></path></svg><input type="range" data-accent="1" min="0" max="1" step="0.01" value="{{ vol }}" onChange="{{ onVol }}" style="flex:1;min-width:0;--fill:{{ volPct }}"></div>
+        <div style="display:flex;align-items:center;gap:6px"><svg width="14" height="12" viewBox="0 0 14 12" fill="var(--edge)" style="display:block;flex:none"><rect x="6" y="1" width="2" height="10"></rect><path d="M4 6L1 3v6zM10 6l3-3v6z"></path></svg><input type="range" min="-1" max="1" step="0.05" value="{{ bal }}" onChange="{{ onBal }}" onDoubleClick="{{ centerBal }}" style="flex:1;min-width:0"></div>
+      </div>
+    </div>
+  </div>
+  </sc-if>
+</div>
+
+<!-- EQ / OPTIONS / THEMES -->
+<sc-if value="{{ showEqWin }}" hint-placeholder-val="{{ true }}">
+<div data-screen-label="Equalizer" style="box-sizing:border-box;margin:-10px 12px 0;padding-top:10px;border:1px solid var(--edge);border-top:none;border-radius:0 0 18px 18px;background:linear-gradient(var(--face),var(--face) 60%,var(--faceLo));box-shadow:inset 0 -2px 0 rgba(0,0,0,.2),inset 1px 0 0 rgba(255,255,255,.6),inset -1px 0 0 rgba(255,255,255,.3);color:var(--text);position:relative;z-index:2">
+  <sc-if value="{{ isEqTab }}" hint-placeholder-val="{{ true }}">
+  <div style="display:flex;gap:10px;padding:12px 14px 8px">
+    <div style="display:flex;flex-direction:column;gap:7px;width:96px;flex:none">
+      <button onClick="{{ toggleEqOn }}" style="height:24px;border-radius:12px;border:1px solid var(--edge);background:linear-gradient(#fff,var(--faceHi) 30%,var(--face) 65%,var(--faceLo));box-shadow:0 1px 2px rgba(0,0,0,.3);color:var(--text);font:inherit;font-weight:700;font-size:10px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;padding:0" style-hover="background:linear-gradient(#fff,var(--faceHi) 60%,var(--face))" style-active="background:var(--faceLo)"><span style="width:8px;height:8px;border-radius:50%;box-shadow:inset 0 0 2px rgba(0,0,0,.7),0 0 4px {{ eqLed }};background:{{ eqLed }}"></span>ON</button>
+      <button onClick="{{ resetEq }}" style="height:24px;border-radius:12px;border:1px solid var(--edge);background:linear-gradient(#fff,var(--faceHi) 30%,var(--face) 65%,var(--faceLo));box-shadow:0 1px 2px rgba(0,0,0,.3);color:var(--text);font:inherit;font-weight:700;font-size:10px;cursor:pointer;padding:0" style-hover="background:linear-gradient(#fff,var(--faceHi) 60%,var(--face))" style-active="background:var(--faceLo)">RESET</button>
+      <select value="{{ preset }}" onChange="{{ onPreset }}" style="height:24px;border-radius:12px;border:1px solid var(--edge);background:linear-gradient(#fff,var(--faceHi) 30%,var(--face) 65%,var(--faceLo));box-shadow:0 1px 2px rgba(0,0,0,.3);color:var(--text);font-weight:700;font-size:10px;padding:0 10px;cursor:pointer">
+        <sc-for list="{{ presets }}" as="p" hint-placeholder-count="3"><option value="{{ p }}">{{ p }}</option></sc-for>
+      </select>
+      <div style="flex:1;display:flex;flex-direction:column;justify-content:space-between;padding:12px 0 22px 6px;font-size:9px;font-weight:700;color:var(--text)"><span style="display:flex;align-items:center;gap:4px"><i style="width:10px;height:1px;background:var(--edge)"></i>+12 dB</span><span style="display:flex;align-items:center;gap:4px"><i style="width:10px;height:1px;background:var(--edge)"></i>0 dB</span><span style="display:flex;align-items:center;gap:4px"><i style="width:10px;height:1px;background:var(--edge)"></i>-12 dB</span></div>
+    </div>
+    <div style="flex:1;min-width:0;display:flex;align-items:flex-end;gap:0;padding:10px 6px 6px;border-radius:10px;border:1px solid var(--edge);background:linear-gradient(var(--faceLo),var(--face) 30%,var(--face) 70%,var(--faceLo));box-shadow:inset 0 2px 5px rgba(0,0,0,.35),0 1px 0 rgba(255,255,255,.8)">
+      <div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex:1;min-width:0">
+        <span style="font-family:VT323,monospace;font-size:15px;line-height:12px">{{ preampStr }}</span>
+        <div style="height:128px;display:flex;justify-content:center;background:repeating-linear-gradient(0deg,var(--edge) 0 1px,transparent 1px 8px);background-size:14px 100%;background-repeat:no-repeat;background-position:center;opacity:1"><input type="range" data-v="1" min="-12" max="12" step="0.5" value="{{ preamp }}" onChange="{{ onPreamp }}" onDoubleClick="{{ resetPreamp }}" style="height:128px"></div>
+        <span style="font-size:8px;font-weight:700;padding:2px 4px;border-radius:3px;background:var(--faceLo);color:var(--text);box-shadow:inset 0 1px 1px rgba(0,0,0,.3)">PRE</span>
+      </div>
+      <div style="width:2px;height:150px;margin:0 4px;flex:none;background:linear-gradient(90deg,var(--edge),rgba(255,255,255,.7))"></div>
+      <sc-for list="{{ bands }}" as="b" hint-placeholder-count="10">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex:1;min-width:0">
+          <span style="font-family:VT323,monospace;font-size:15px;line-height:12px">{{ b.gainStr }}</span>
+          <div style="height:128px;display:flex;justify-content:center;background:repeating-linear-gradient(0deg,var(--edge) 0 1px,transparent 1px 8px);background-size:14px 100%;background-repeat:no-repeat;background-position:center"><input type="range" data-v="1" min="-12" max="12" step="0.5" value="{{ b.gain }}" onChange="{{ b.onChange }}" onDoubleClick="{{ b.reset }}" style="height:128px"></div>
+          <span style="font-size:8px;font-weight:700;padding:2px 3px;border-radius:3px;background:var(--faceLo);color:var(--text);box-shadow:inset 0 1px 1px rgba(0,0,0,.3);min-width:18px;text-align:center;font-size:7px">{{ b.label }}</span>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+  </sc-if>
+
+  <sc-if value="{{ isThemesTab }}" hint-placeholder-val="{{ false }}">
+  <div style="padding:14px;display:grid;grid-template-columns:1fr 1fr;gap:10px">
+    <sc-for list="{{ themes }}" as="th" hint-placeholder-count="4">
+      <button onClick="{{ th.select }}" style="box-sizing:border-box;padding:9px;border-radius:12px;border:1px solid var(--edge);background:linear-gradient(#fff,var(--faceHi) 30%,var(--face));box-shadow:0 1px 2px rgba(0,0,0,.3);color:var(--text);font:inherit;cursor:pointer;display:flex;flex-direction:column;gap:7px;text-align:left" style-hover="background:linear-gradient(#fff,var(--faceHi))" style-active="background:var(--faceLo)">
+        <div style="display:flex;align-items:center;gap:6px"><span style="width:8px;height:8px;border-radius:50%;box-shadow:inset 0 0 2px rgba(0,0,0,.7),0 0 4px {{ th.led }};background:{{ th.led }}"></span><span style="font-weight:700;font-size:10px">{{ th.name }}</span></div>
+        <div style="display:flex;height:30px;border-radius:6px;overflow:hidden;border:1px solid {{ th.edge }};box-shadow:inset 0 2px 3px rgba(0,0,0,.4)">
+          <div style="flex:1;background:linear-gradient({{ th.faceHi }},{{ th.faceLo }})"></div>
+          <div style="flex:2;background:linear-gradient({{ th.lcd1 }},{{ th.lcd2 }});color:{{ th.lcdFg }};font-family:VT323,monospace;font-size:20px;line-height:30px;text-align:center">00:00</div>
+          <div style="flex:1;background:{{ th.accent }}"></div>
+        </div>
+      </button>
+    </sc-for>
+  </div>
+  </sc-if>
+
+  <sc-if value="{{ isOptionsTab }}" hint-placeholder-val="{{ false }}">
+  <div style="padding:14px;display:flex;flex-direction:column;gap:7px">
+    <div style="display:flex;align-items:center;gap:5px"><span style="width:108px;font-weight:700;font-size:9px">WINDOW CHROME</span>
+      <button onClick="{{ setChromeClassic }}" style="height:24px;padding:0 12px;border-radius:12px;border:1px solid var(--edge);background:linear-gradient(#fff,var(--faceHi) 30%,var(--face) 65%,var(--faceLo));box-shadow:0 1px 2px rgba(0,0,0,.3);color:var(--text);font:inherit;font-weight:700;font-size:10px;cursor:pointer;display:inline-flex;align-items:center;gap:5px" style-hover="background:linear-gradient(#fff,var(--faceHi) 60%,var(--face))"><span style="width:8px;height:8px;border-radius:50%;box-shadow:inset 0 0 2px rgba(0,0,0,.7),0 0 4px {{ chromeClassicLed }};background:{{ chromeClassicLed }}"></span>CLASSIC</button>
+      <button onClick="{{ setChromeMac }}" style="height:24px;padding:0 12px;border-radius:12px;border:1px solid var(--edge);background:linear-gradient(#fff,var(--faceHi) 30%,var(--face) 65%,var(--faceLo));box-shadow:0 1px 2px rgba(0,0,0,.3);color:var(--text);font:inherit;font-weight:700;font-size:10px;cursor:pointer;display:inline-flex;align-items:center;gap:5px" style-hover="background:linear-gradient(#fff,var(--faceHi) 60%,var(--face))"><span style="width:8px;height:8px;border-radius:50%;box-shadow:inset 0 0 2px rgba(0,0,0,.7),0 0 4px {{ chromeMacLed }};background:{{ chromeMacLed }}"></span>MACOS</button>
+    </div>
+    <div style="display:flex;align-items:center;gap:5px"><span style="width:108px;font-weight:700;font-size:9px">TIME DISPLAY</span>
+      <button onClick="{{ setElapsed }}" style="height:24px;padding:0 12px;border-radius:12px;border:1px solid var(--edge);background:linear-gradient(#fff,var(--faceHi) 30%,var(--face) 65%,var(--faceLo));box-shadow:0 1px 2px rgba(0,0,0,.3);color:var(--text);font:inherit;font-weight:700;font-size:10px;cursor:pointer;display:inline-flex;align-items:center;gap:5px" style-hover="background:linear-gradient(#fff,var(--faceHi) 60%,var(--face))"><span style="width:8px;height:8px;border-radius:50%;box-shadow:inset 0 0 2px rgba(0,0,0,.7),0 0 4px {{ elapsedLed }};background:{{ elapsedLed }}"></span>ELAPSED</button>
+      <button onClick="{{ setRemaining }}" style="height:24px;padding:0 12px;border-radius:12px;border:1px solid var(--edge);background:linear-gradient(#fff,var(--faceHi) 30%,var(--face) 65%,var(--faceLo));box-shadow:0 1px 2px rgba(0,0,0,.3);color:var(--text);font:inherit;font-weight:700;font-size:10px;cursor:pointer;display:inline-flex;align-items:center;gap:5px" style-hover="background:linear-gradient(#fff,var(--faceHi) 60%,var(--face))"><span style="width:8px;height:8px;border-radius:50%;box-shadow:inset 0 0 2px rgba(0,0,0,.7),0 0 4px {{ remainingLed }};background:{{ remainingLed }}"></span>REMAINING</button>
+    </div>
+    <div style="display:flex;align-items:center;gap:5px"><span style="width:108px;font-weight:700;font-size:9px">TITLE SCROLL</span>
+      <button onClick="{{ setScrollSlow }}" style="height:24px;padding:0 12px;border-radius:12px;border:1px solid var(--edge);background:linear-gradient(#fff,var(--faceHi) 30%,var(--face) 65%,var(--faceLo));box-shadow:0 1px 2px rgba(0,0,0,.3);color:var(--text);font:inherit;font-weight:700;font-size:10px;cursor:pointer;display:inline-flex;align-items:center;gap:5px" style-hover="background:linear-gradient(#fff,var(--faceHi) 60%,var(--face))"><span style="width:8px;height:8px;border-radius:50%;box-shadow:inset 0 0 2px rgba(0,0,0,.7),0 0 4px {{ scrollSlowLed }};background:{{ scrollSlowLed }}"></span>SLOW</button>
+      <button onClick="{{ setScrollNormal }}" style="height:24px;padding:0 12px;border-radius:12px;border:1px solid var(--edge);background:linear-gradient(#fff,var(--faceHi) 30%,var(--face) 65%,var(--faceLo));box-shadow:0 1px 2px rgba(0,0,0,.3);color:var(--text);font:inherit;font-weight:700;font-size:10px;cursor:pointer;display:inline-flex;align-items:center;gap:5px" style-hover="background:linear-gradient(#fff,var(--faceHi) 60%,var(--face))"><span style="width:8px;height:8px;border-radius:50%;box-shadow:inset 0 0 2px rgba(0,0,0,.7),0 0 4px {{ scrollNormalLed }};background:{{ scrollNormalLed }}"></span>NORMAL</button>
+      <button onClick="{{ setScrollFast }}" style="height:24px;padding:0 12px;border-radius:12px;border:1px solid var(--edge);background:linear-gradient(#fff,var(--faceHi) 30%,var(--face) 65%,var(--faceLo));box-shadow:0 1px 2px rgba(0,0,0,.3);color:var(--text);font:inherit;font-weight:700;font-size:10px;cursor:pointer;display:inline-flex;align-items:center;gap:5px" style-hover="background:linear-gradient(#fff,var(--faceHi) 60%,var(--face))"><span style="width:8px;height:8px;border-radius:50%;box-shadow:inset 0 0 2px rgba(0,0,0,.7),0 0 4px {{ scrollFastLed }};background:{{ scrollFastLed }}"></span>FAST</button>
+    </div>
+    <div style="display:flex;align-items:center;gap:5px"><span style="width:108px;font-weight:700;font-size:9px">WINDOW</span>
+      <button onClick="{{ toggleDbl }}" style="height:24px;padding:0 12px;border-radius:12px;border:1px solid var(--edge);background:linear-gradient(#fff,var(--faceHi) 30%,var(--face) 65%,var(--faceLo));box-shadow:0 1px 2px rgba(0,0,0,.3);color:var(--text);font:inherit;font-weight:700;font-size:10px;cursor:pointer;display:inline-flex;align-items:center;gap:5px" style-hover="background:linear-gradient(#fff,var(--faceHi) 60%,var(--face))"><span style="width:8px;height:8px;border-radius:50%;box-shadow:inset 0 0 2px rgba(0,0,0,.7),0 0 4px {{ dblLed }};background:{{ dblLed }}"></span>DOUBLE SIZE</button>
+      <button onClick="{{ togglePin }}" title="Cosmetic in a browser tab" style="height:24px;padding:0 12px;border-radius:12px;border:1px solid var(--edge);background:linear-gradient(#fff,var(--faceHi) 30%,var(--face) 65%,var(--faceLo));box-shadow:0 1px 2px rgba(0,0,0,.3);color:var(--text);font:inherit;font-weight:700;font-size:10px;cursor:pointer;display:inline-flex;align-items:center;gap:5px" style-hover="background:linear-gradient(#fff,var(--faceHi) 60%,var(--face))"><span style="width:8px;height:8px;border-radius:50%;box-shadow:inset 0 0 2px rgba(0,0,0,.7),0 0 4px {{ pinLed }};background:{{ pinLed }}"></span>ALWAYS ON TOP</button>
+    </div>
+    <div style="display:flex;align-items:center;gap:5px"><span style="width:108px;font-weight:700;font-size:9px">PLAYBACK</span>
+      <button onClick="{{ toggleShuffle }}" style="height:24px;padding:0 12px;border-radius:12px;border:1px solid var(--edge);background:linear-gradient(#fff,var(--faceHi) 30%,var(--face) 65%,var(--faceLo));box-shadow:0 1px 2px rgba(0,0,0,.3);color:var(--text);font:inherit;font-weight:700;font-size:10px;cursor:pointer;display:inline-flex;align-items:center;gap:5px" style-hover="background:linear-gradient(#fff,var(--faceHi) 60%,var(--face))"><span style="width:8px;height:8px;border-radius:50%;box-shadow:inset 0 0 2px rgba(0,0,0,.7),0 0 4px {{ shuffleLed }};background:{{ shuffleLed }}"></span>SHUFFLE</button>
+      <button onClick="{{ toggleRepeat }}" style="height:24px;padding:0 12px;border-radius:12px;border:1px solid var(--edge);background:linear-gradient(#fff,var(--faceHi) 30%,var(--face) 65%,var(--faceLo));box-shadow:0 1px 2px rgba(0,0,0,.3);color:var(--text);font:inherit;font-weight:700;font-size:10px;cursor:pointer;display:inline-flex;align-items:center;gap:5px" style-hover="background:linear-gradient(#fff,var(--faceHi) 60%,var(--face))"><span style="width:8px;height:8px;border-radius:50%;box-shadow:inset 0 0 2px rgba(0,0,0,.7),0 0 4px {{ repeatLed }};background:{{ repeatLed }}"></span>REPEAT</button>
+    </div>
+  </div>
+  </sc-if>
+
+  <div style="display: flex; align-items: flex-start; gap: 0; padding: 0 22px; height: 34px; border-top: 1px solid var(--edge); margin-top: 4px; border-radius: 0 0 17px 17px; background: linear-gradient(var(--faceLo),var(--face) 45%); position: relative">
+    <button onClick="{{ tabEq }}" style="height:28px;padding:0 18px;margin-top:-1px;border:1px solid var(--edge);border-top:none;border-radius:0 0 16px 16px / 0 0 28px 28px;background:{{ tabEqBg }};color:var(--text);font:inherit;font-weight:700;font-size:10px;letter-spacing:1px;cursor:pointer;box-shadow:0 2px 2px rgba(0,0,0,.25),inset 0 -1px 0 rgba(255,255,255,.7)" style-hover="color:var(--accent)">EQUALIZER</button>
+    <button onClick="{{ tabOptions }}" style="height:28px;padding:0 18px;margin:-1px 0 0 -6px;border:1px solid var(--edge);border-top:none;border-radius:0 0 16px 16px / 0 0 28px 28px;background:{{ tabOptionsBg }};color:var(--text);font:inherit;font-weight:700;font-size:10px;letter-spacing:1px;cursor:pointer;box-shadow:0 2px 2px rgba(0,0,0,.25),inset 0 -1px 0 rgba(255,255,255,.7)" style-hover="color:var(--accent)">OPTIONS</button>
+    <button onClick="{{ tabThemes }}" style="height:28px;padding:0 18px;margin:-1px 0 0 -6px;border:1px solid var(--edge);border-top:none;border-radius:0 0 16px 16px / 0 0 28px 28px;background:{{ tabThemesBg }};color:var(--text);font:inherit;font-weight:700;font-size:10px;letter-spacing:1px;cursor:pointer;box-shadow:0 2px 2px rgba(0,0,0,.25),inset 0 -1px 0 rgba(255,255,255,.7)" style-hover="color:var(--accent)">COLOR THEMES</button>
+    <div style="flex:1"></div>
+    <button onClick="{{ toggleEqWin }}" title="Hide panel" style="width:44px;height:18px;margin-top:6px;border-radius:9px;border:1px solid var(--edge);background:linear-gradient(#fff,var(--faceHi) 40%,var(--faceLo));box-shadow:0 1px 2px rgba(0,0,0,.3);color:var(--text);cursor:pointer;padding:0;display:flex;align-items:center;justify-content:center" style-hover="background:linear-gradient(#fff,var(--faceHi))"><svg width="10" height="8" viewBox="0 0 10 8" fill="currentColor" style="display:block"><path d="M5 1l4 6H1z"></path></svg></button></div>
+</div>
+</sc-if>
+
+<!-- PLAYLIST -->
+<sc-if value="{{ showPlWin }}" hint-placeholder-val="{{ true }}">
+<div data-screen-label="Playlist" style="box-sizing:border-box;margin:12px 0 0;padding:2px;border:1px solid var(--edge);border-radius:18px;background:linear-gradient(175deg,var(--faceHi) 0%,var(--face) 30%,var(--face) 70%,var(--faceLo) 100%);box-shadow:inset 0 0 0 1px rgba(255,255,255,.85),inset 0 -2px 0 rgba(0,0,0,.2);color:var(--text);position:relative;z-index:1">
+  <div style="display:flex;align-items:center;height:28px;padding:0 8px;gap:8px;border-bottom:1px solid var(--edge);border-radius:16px 16px 0 0;background:linear-gradient(var(--faceHi),var(--face));box-shadow:inset 0 1px 0 #fff">
+    <div style="flex:1;height:10px;border-radius:5px;border:1px solid var(--edge);box-shadow:inset 0 1px 1px rgba(0,0,0,.35),0 1px 0 rgba(255,255,255,.8);background:repeating-linear-gradient(0deg,var(--faceLo) 0 1px,var(--faceHi) 1px 2px,var(--face) 2px 3px)"></div>
+    <div style="font-family:Silkscreen,monospace;font-weight:700;letter-spacing:1px;font-size:11px;color:var(--edge);text-shadow:0 1px 0 #fff,0 -1px 0 rgba(0,0,0,.25);padding:0 4px">PLAYLIST</div>
+    <div style="flex:1;height:10px;border-radius:5px;border:1px solid var(--edge);box-shadow:inset 0 1px 1px rgba(0,0,0,.35),0 1px 0 rgba(255,255,255,.8);background:repeating-linear-gradient(0deg,var(--faceLo) 0 1px,var(--faceHi) 1px 2px,var(--face) 2px 3px)"></div>
+    <button onClick="{{ togglePlWin }}" style="width:20px;height:18px;padding:0;border-radius:4px;border:1px solid var(--edge);background:linear-gradient(var(--faceHi),var(--faceLo));box-shadow:inset 0 1px 0 #fff;color:var(--text);cursor:pointer;display:flex;align-items:center;justify-content:center" style-hover="background:linear-gradient(#fff,var(--face))"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8" style="display:block"><path d="M2 2l6 6M8 2l-6 6"></path></svg></button>
+  </div>
+  <div style="padding:10px 12px 12px;display:flex;flex-direction:column;gap:9px">
+    <div ref="{{ listRef }}" style="position:relative;height:160px;overflow:auto;padding:5px 8px;border-radius:9px;border:2px solid var(--edge);background:linear-gradient(var(--lcd1),var(--lcd2) 85%);box-shadow:inset 0 4px 8px rgba(0,0,0,.6),0 1px 0 rgba(255,255,255,.8);color:var(--lcdFg);font-family:VT323,monospace;font-size:19px;line-height:21px;text-shadow:0 0 4px var(--lcdDim)">
+      <sc-if value="{{ isEmpty }}" hint-placeholder-val="{{ true }}"><div style="height:100%;display:flex;align-items:center;justify-content:center;text-align:center;color:var(--lcdDim);white-space:pre-line">{{ emptyMsg }}</div></sc-if>
+      <sc-for list="{{ tracks }}" as="t" hint-placeholder-count="0">
+        <div onClick="{{ t.select }}" onDoubleClick="{{ t.play }}" style="display:flex;gap:8px;padding:0 5px;border-radius:3px;cursor:default;white-space:nowrap;color:{{ t.color }};background:{{ t.bg }}">
+          <span style="width:28px;text-align:right;flex:none">{{ t.num }}</span><span style="flex:1;overflow:hidden;text-overflow:ellipsis">{{ t.label }}</span><span style="flex:none">{{ t.durStr }}</span>
+        </div>
+      </sc-for>
+    </div>
+    <div style="display:flex;align-items:center;gap:5px">
+      <button onClick="{{ openFiles }}" style="height:24px;padding:0 14px;border-radius:12px;border:1px solid var(--edge);background:linear-gradient(#fff,var(--faceHi) 30%,var(--face) 65%,var(--faceLo));box-shadow:0 1px 2px rgba(0,0,0,.3);color:var(--text);font:inherit;font-weight:700;font-size:10px;cursor:pointer" style-hover="background:linear-gradient(#fff,var(--faceHi) 60%,var(--face))" style-active="background:var(--faceLo)">+ ADD</button>
+      <button onClick="{{ removeSel }}" style="height:24px;padding:0 14px;border-radius:12px;border:1px solid var(--edge);background:linear-gradient(#fff,var(--faceHi) 30%,var(--face) 65%,var(--faceLo));box-shadow:0 1px 2px rgba(0,0,0,.3);color:var(--text);font:inherit;font-weight:700;font-size:10px;cursor:pointer" style-hover="background:linear-gradient(#fff,var(--faceHi) 60%,var(--face))" style-active="background:var(--faceLo)">− REM</button>
+      <button onClick="{{ clearAll }}" style="height:24px;padding:0 14px;border-radius:12px;border:1px solid var(--edge);background:linear-gradient(#fff,var(--faceHi) 30%,var(--face) 65%,var(--faceLo));box-shadow:0 1px 2px rgba(0,0,0,.3);color:var(--text);font:inherit;font-weight:700;font-size:10px;cursor:pointer" style-hover="background:linear-gradient(#fff,var(--faceHi) 60%,var(--face))" style-active="background:var(--faceLo)">CLEAR</button>
+      <div style="flex:1"></div>
+      <div style="font-family:VT323,monospace;font-size:19px;line-height:19px;color:var(--lcdFg);text-shadow:0 0 4px var(--lcdDim);background:linear-gradient(var(--lcd1),var(--lcd2));padding:2px 9px;border-radius:6px;border:1px solid var(--edge);box-shadow:inset 0 2px 4px rgba(0,0,0,.55)">{{ plTotals }}</div>
+    </div>
+  </div>
+</div>
+</sc-if>
+
+</div></div>
+</x-dc>

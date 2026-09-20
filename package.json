@@ -1,0 +1,33 @@
+{
+  "name": "flaccer",
+  "productName": "FLACCER",
+  "version": "1.0.0",
+  "description": "A Winamp-style FLAC player for macOS",
+  "main": "src/main.js",
+  "private": true,
+  "scripts": {
+    "start": "electron .",
+    "sync-design": "node scripts/sync-design.js",
+    "pack": "electron-packager . FLACCER --platform=darwin --arch=arm64 --out=dist --overwrite --icon=build/icon.icns --extend-info=build/Info.plist --ignore='^/(dist|uploads|build/.*\\.png|scripts|FLACCER.*\\.dc\\.html|support\\.js|\\.thumbnail)' --app-bundle-id=com.angad.flaccer",
+    "dmg": "bash scripts/make-dmg.sh",
+    "dist": "npm run pack && npm run dmg"
+  },
+  "devDependencies": {
+    "electron": "latest",
+    "@electron/packager": "latest"
+  },
+  "dependencies": {
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
+  },
+  "author": "Angad Kandhari",
+  "license": "MIT",
+  "homepage": "https://github.com/angad-kandhari/flaccer#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/angad-kandhari/flaccer.git"
+  },
+  "bugs": {
+    "url": "https://github.com/angad-kandhari/flaccer/issues"
+  }
+}

@@ -1,0 +1,28 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Syntax check
+        run: |
+          node --check src/main.js src/preload.js src/flac-meta.js scripts/sync-design.js
+          node -e "new Function(require('fs').readFileSync('renderer/player.js','utf8')); new Function(require('fs').readFileSync('renderer/dc-runtime.js','utf8'))"
+      - name: Template still extracts from the design export
+        run: npm run sync-design && git diff --exit-code -- renderer/template.html
+      - name: FLAC metadata reader
+        run: |
+          node scripts/make-test-flac.js /tmp/test.flac
+          node -e "const m=require('./src/flac-meta').readFlacMeta('/tmp/test.flac'); if(m.tags.title!=='Test Tone Sweep'||m.sampleRate!==44100) process.exit(1); console.log(m)"
+      - run: npm run pack
