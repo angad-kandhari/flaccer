@@ -1,7 +1,7 @@
 {
   "name": "flaccer",
   "productName": "FLACCER",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A Winamp-style FLAC player for macOS",
   "main": "src/main.js",
   "private": true,
